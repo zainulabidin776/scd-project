@@ -12,7 +12,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Docker to use Minikube's environment
+      - name: Set up Docker to use Minikube's environment 
+        shell: pwsh
         run: |
           echo "Configuring Docker to use Minikube's daemon..."
           eval $(minikube docker-env)
