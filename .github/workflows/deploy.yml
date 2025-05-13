@@ -12,45 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      
-        
-      - name: Configure Docker to use Minikube's Docker daemon
-        shell: powershell
-        run: |
-            & minikube -p minikube docker-env --shell powershell | Invoke-Expression
-          
-      - name: Build Docker images
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/mern-amazona-backend:latest ./backend
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/mern-amazona-frontend:latest ./frontend
-          
-      - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-        
-      - name: Push Docker images to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/mern-amazona-backend:latest
-          docker push ${{ secrets.DOCKER_USERNAME }}/mern-amazona-frontend:latest
-          
-      - name: Deploy to Minikube
-        run: |
-          kubectl apply -f namespace.yaml
-          kubectl apply -f mongodb-deployment.yaml
-          kubectl apply -f backend-deployment.yaml
-          kubectl apply -f frontend-deployment.yamlname: Build and Deploy to Minikube
-
-on:
-  push:
-    branches:
-      - master
-
-jobs:
-  build-deploy:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Configure Docker to use Minikube's Docker daemon
         shell: powershell
         run: |
@@ -58,8 +19,8 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t your_dockerhub_username/mern-amazona-backend:latest ./backend
-          docker build -t your_dockerhub_username/mern-amazona-frontend:latest ./frontend
+          docker build -t itsmezayynn/mern-amazona-backend:latest ./backend
+          docker build -t itsmezayynn/mern-amazona-frontend:latest ./frontend
 
       - name: Login to Docker Hub
         shell: powershell
